@@ -1,13 +1,13 @@
 package entities;
 
-public class ADTStaticPriorityQueue {
+public class ADTUnorderedStaticPriorityQueue {
     private final Integer[] QUEUE;
     private final int LENGTH;
     private int elements;
     private Integer prioElement;
     private Integer prioElementIndex;
 
-    public ADTStaticPriorityQueue(int LENGTH) {
+    public ADTUnorderedStaticPriorityQueue(int LENGTH) {
         if (LENGTH <= 0) throw new IllegalArgumentException("Invalid length. It must be bigger than zero.");
 
         this.LENGTH = LENGTH;

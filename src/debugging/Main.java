@@ -1,10 +1,10 @@
 package debugging;
 
-import entities.ADTStaticPriorityQueue;
+import entities.ADTUnorderedStaticPriorityQueue;
 
 public class Main {
     public static void main(String[] args) {
-        ADTStaticPriorityQueue queue = new ADTStaticPriorityQueue(5);
+        ADTUnorderedStaticPriorityQueue queue = new ADTUnorderedStaticPriorityQueue(5);
 
         System.out.println(queue.isEmpty());
         System.out.println(queue.isFull());
