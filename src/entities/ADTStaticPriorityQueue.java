@@ -5,7 +5,7 @@ public class ADTStaticPriorityQueue {
     private final int LENGTH;
     private int elements;
     private Integer prioElement;
-    private int prioElementIndex;
+    private Integer prioElementIndex;
 
     public ADTStaticPriorityQueue(int LENGTH) {
         if (LENGTH <= 0) throw new IllegalArgumentException("Invalid length. It must be bigger than zero.");
@@ -14,6 +14,7 @@ public class ADTStaticPriorityQueue {
         QUEUE = new Integer[LENGTH];
         elements = 0;
         prioElement = null;
+        prioElementIndex = null;
     }
 
     public boolean isEmpty() {
@@ -24,60 +25,45 @@ public class ADTStaticPriorityQueue {
         return elements == LENGTH;
     }
 
-    public boolean prioIsNull() {
-        return prioElement == null;
-    }
+    private void updatePriority() {
+        prioElement = QUEUE[0];
+        prioElementIndex = 0;
 
-    private int definePrioElement() {
-        for (int i = 0; i < elements; i++) {
-            prioElement = QUEUE[i];
-            for (int j = 0; j < elements; j++) {
-                if (prioElement < QUEUE[j]) {
-                    prioElement = QUEUE[j];
-                }
-            }
-        }
-
-        return prioElement;
-    }
-
-    private int definePrioElementIndex() {
-        for (int i = 0; i < elements; i++) {
-            if (QUEUE[i].equals(prioElement)) {
+        for (int i = 1; i < elements; i++) {
+            if (QUEUE[i] > prioElement) {
+                prioElement = QUEUE[i];
                 prioElementIndex = i;
-                break;
             }
         }
-
-        return prioElementIndex;
     }
 
     public void enqueue(int element) {
         if (isFull()) throw new IllegalStateException("Queue is full.");
 
-        if (prioIsNull()) {
-            prioElement = element;
-            QUEUE[0] = element;
-            elements++;
-        } else {
-            prioElement = definePrioElement();
-            prioElementIndex = definePrioElementIndex();
-            QUEUE[elements] = element;
-            elements++;
-        }
+        QUEUE[elements] = element;
+        elements++;
+        updatePriority();
     }
 
     public void dequeue() {
         if (isEmpty()) throw new IllegalStateException("List is empty.");
 
-        for (int i = definePrioElementIndex(); i < elements - 1; i++) {
+        for (int i = prioElementIndex; i < elements - 1; i++) {
             QUEUE[i] = QUEUE[i + 1];
-            QUEUE[i + 1] = null;
         }
 
         elements--;
-        prioElement = definePrioElement();
-        prioElementIndex = definePrioElementIndex();
+        updatePriority();
+    }
+
+    public boolean contains(int element) {
+        for (int i = 0; i < elements; i++) {
+            if (QUEUE[i].equals(element)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

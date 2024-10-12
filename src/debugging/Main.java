@@ -25,5 +25,12 @@ public class Main {
         queue.dequeue();
 
         System.out.println(queue);
+
+        queue.enqueue(76);
+
+        System.out.println(queue);
+
+        System.out.println(queue.contains(75));
+        System.out.println(queue.contains(76));
     }
 }
